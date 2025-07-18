@@ -263,15 +263,26 @@
       </form>
       <div id="success-message" style="display:none;margin-top:16px;color:#27ae60;font-weight:bold;font-size:1.1rem;text-align:center;">Buff thành công!</div>
       <script>
-        // Xử lý submit form không chuyển trang, hiện thông báo thành công
+        // Xử lý submit form gửi qua AJAX, không chuyển trang, hiện thông báo thành công
         const form = document.forms['contact'];
         const successMsg = document.getElementById('success-message');
         if(form) {
           form.addEventListener('submit', function(e) {
             e.preventDefault();
-            form.style.opacity = 0.5;
-            form.querySelectorAll('input,textarea,button').forEach(el => el.disabled = true);
-            successMsg.style.display = 'block';
+            const formData = new FormData(form);
+            fetch(form.action || window.location.pathname, {
+              method: form.method,
+              body: formData,
+              headers: { 'Accept': 'application/json' }
+            })
+            .then(response => {
+              form.style.opacity = 0.5;
+              form.querySelectorAll('input,textarea,button').forEach(el => el.disabled = true);
+              successMsg.style.display = 'block';
+            })
+            .catch(error => {
+              alert('Có lỗi xảy ra, vui lòng thử lại!');
+            });
           });
         }
       </script>
