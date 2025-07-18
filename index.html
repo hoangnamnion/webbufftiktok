@@ -225,23 +225,11 @@
     <div class="form-container">
         <h2>WEB BUFF TikTok</h2>
         <img class="tiktok-logo" src="https://store-images.s-microsoft.com/image/apps.4784.13634052595610511.c45457c9-b4af-46b0-8e61-8d7c0aec3f56.3d483847-81a6-4078-8f83-a35c5c38ee92?h=210" alt="TikTok Logo" loading="lazy">
-        <form action="https://formsubmit.co/webhoangnam@gmail.com" method="POST">
-            <div style="margin-bottom: 14px; display: flex; flex-direction: column; gap: 8px; align-items: flex-start;">
-                <label style="display: flex; align-items: center; gap: 6px; font-weight: 500;">
-                    <input type="radio" name="service" id="service-view" value="view" data-min="100" data-max="10000" data-price="10" required>
-                    View (10đ/1)
-                </label>
-                <label style="display: flex; align-items: center; gap: 6px; font-weight: 500;">
-                    <input type="radio" name="service" id="service-tim" value="tim" data-min="100" data-max="1000" data-price="20" required>
-                    Tim (20đ/1)
-                </label>
-            </div>
-            <input type="text" name="link" placeholder="Đường link" required>
-            <input type="email" name="email" placeholder="Email của bạn" value="devnam@gmail.com" required>
-            <input type="number" id="quantity" name="quantity" placeholder="Số lượng" min="100" required>
-            <div id="quantity-warning" style="color:#e74c3c;font-size:0.97em;margin-bottom:2px;min-height:18px;"></div>
-            <div id="total-price" style="margin-bottom:8px;color:#d7263d;font-weight:bold;"></div>
-            <button type="submit">Gửi</button>
+        <form name="contact" method="POST" data-netlify="true" style="width:100%;display:flex;flex-direction:column;gap:16px;align-items:center;max-width:270px;margin:0 auto;">
+            <input type="hidden" name="form-name" value="contact" />
+            <input type="text" name="name" placeholder="Tên của bạn" required style="padding:10px 14px;border:1px solid #ccc;border-radius:8px;font-size:1rem;width:100%;box-sizing:border-box;">
+            <input type="email" name="email" placeholder="Email của bạn" required style="padding:10px 14px;border:1px solid #ccc;border-radius:8px;font-size:1rem;width:100%;box-sizing:border-box;">
+            <button type="submit" style="background:linear-gradient(90deg,#ff512f 0%,#dd2476 100%);border:none;border-radius:8px;padding:12px;font-size:1rem;font-weight:bold;cursor:pointer;transition:background 0.2s,transform 0.1s;box-shadow:0 2px 8px rgba(221,36,118,0.10);width:100%;color:#fff;">Gửi</button>
         </form>
     </div>
     <canvas id="star-canvas" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;pointer-events:none;"></canvas>
