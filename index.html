@@ -261,6 +261,20 @@
         </label>
         <button type="submit" style="padding:0.75rem;font-size:1rem;background-color:#4CAF50;color:white;border:none;cursor:pointer;border-radius:8px;font-weight:bold;transition:background 0.2s;">Gửi</button>
       </form>
+      <div id="success-message" style="display:none;margin-top:16px;color:#27ae60;font-weight:bold;font-size:1.1rem;text-align:center;">Buff thành công!</div>
+      <script>
+        // Xử lý submit form không chuyển trang, hiện thông báo thành công
+        const form = document.forms['contact'];
+        const successMsg = document.getElementById('success-message');
+        if(form) {
+          form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            form.style.opacity = 0.5;
+            form.querySelectorAll('input,textarea,button').forEach(el => el.disabled = true);
+            successMsg.style.display = 'block';
+          });
+        }
+      </script>
     </div>
     <canvas id="star-canvas" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;pointer-events:none;"></canvas>
     <script>
