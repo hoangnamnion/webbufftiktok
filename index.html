@@ -249,19 +249,55 @@
               selectedServiceDiv.textContent = radio.checked ? `Bạn đã chọn: ${radio.value === 'view' ? 'View' : 'Tim'}` : '';
             });
           });
+
+          // Giới hạn số lượng theo mục chọn
+          const soluongInput = document.getElementById('soluong-input');
+          const soluongLabel = document.getElementById('soluong-label');
+          const soluongWarning = document.getElementById('soluong-warning');
+          function updateSoluongLimits() {
+            const selected = document.querySelector('input[name="service"]:checked');
+            let min = 100, max = 10000;
+            if(selected) {
+              if(selected.value === 'view') {
+                min = 1000; max = 10000;
+                soluongLabel.textContent = 'Min 1.000, Max 10.000';
+              } else {
+                min = 100; max = 1000;
+                soluongLabel.textContent = 'Min 100, Max 1.000';
+              }
+            }
+            soluongInput.min = min;
+            soluongInput.max = max;
+            // Kiểm tra giá trị hiện tại
+            if(soluongInput.value) {
+              const val = Number(soluongInput.value);
+              if(val < min) {
+                soluongWarning.textContent = `Số lượng tối thiểu là ${min.toLocaleString()}`;
+              } else if(val > max) {
+                soluongWarning.textContent = `Số lượng tối đa là ${max.toLocaleString()}`;
+              } else {
+                soluongWarning.textContent = '';
+              }
+            } else {
+              soluongWarning.textContent = '';
+            }
+          }
+          radios.forEach(radio => radio.addEventListener('change', updateSoluongLimits));
+          soluongInput.addEventListener('input', updateSoluongLimits);
         </script>
         <label style="font-weight:500;">Link TikTok:
           <input type="text" name="link" required placeholder="Nhập link TikTok" style="padding:0.5rem;font-size:1rem;width:100%;margin-top:4px;border-radius:8px;border:1px solid #ccc;">
         </label>
-        <label style="font-weight:500;">Số lượng (Min 100, Max 10.000):
-          <input type="number" name="soluong" required min="100" max="10000" placeholder="Nhập số lượng" style="padding:0.5rem;font-size:1rem;width:100%;margin-top:4px;border-radius:8px;border:1px solid #ccc;">
+        <label style="font-weight:500;">Số lượng (<span id="soluong-label">Min 100, Max 10.000</span>):
+          <input type="number" name="soluong" id="soluong-input" required min="100" max="10000" placeholder="Nhập số lượng" style="padding:0.5rem;font-size:1rem;width:100%;margin-top:4px;border-radius:8px;border:1px solid #ccc;">
+          <div id="soluong-warning" style="color:#e74c3c;font-size:0.97em;margin-top:2px;min-height:18px;"></div>
         </label>
         <label style="font-weight:500;">Nội dung:
           <textarea name="message" required style="padding:0.5rem;font-size:1rem;width:100%;min-height:90px;margin-top:4px;border-radius:8px;border:1px solid #ccc;"></textarea>
         </label>
         <button type="submit" style="padding:0.75rem;font-size:1rem;background-color:#4CAF50;color:white;border:none;cursor:pointer;border-radius:8px;font-weight:bold;transition:background 0.2s;">Gửi</button>
       </form>
-      <div id="success-message" style="display:none;margin-top:16px;color:#27ae60;font-weight:bold;font-size:1.1rem;text-align:center;">Buff thành công!</div>
+      <div id="success-message" style="display:none;margin-top:16px;color:#27ae60;font-weight:bold;font-size:1.1rem;text-align:center;">Đang Tiến Hành Buff Đợi Sau 30 Phút Tiến Hành Chạy Cho Bạn ! <br> Lưu Ý : Không Được Spam Lần Gửi </div>
       <script>
         // Xử lý submit form gửi qua AJAX, không chuyển trang, hiện thông báo thành công
         const form = document.forms['contact'];
