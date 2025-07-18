@@ -227,11 +227,38 @@
       <h1 style="text-align:center;margin-bottom:1.5rem;">Liên hệ với chúng tôi</h1>
       <form name="contact" method="POST" data-netlify="true" style="display:flex;flex-direction:column;gap:1rem;">
         <input type="hidden" name="form-name" value="contact">
-        <label style="font-weight:500;">Họ và tên:
-          <input type="text" name="name" required style="padding:0.5rem;font-size:1rem;width:100%;margin-top:4px;border-radius:8px;border:1px solid #ccc;">
+        <div style="margin-bottom: 1rem; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+          <span style="font-weight:600;font-size:1.08rem;margin-bottom:2px;">Chọn mục:</span>
+          <div style="display:flex;gap:18px;justify-content:center;">
+            <label style="display:flex;align-items:center;gap:6px;background:#f7f7f7;padding:8px 18px;border-radius:12px;box-shadow:0 2px 8px rgba(221,36,118,0.07);cursor:pointer;font-weight:500;transition:background 0.2s;">
+              <input type="radio" name="service" value="view" required style="accent-color:#ff512f;width:18px;height:18px;"> View
+            </label>
+            <label style="display:flex;align-items:center;gap:6px;background:#f7f7f7;padding:8px 18px;border-radius:12px;box-shadow:0 2px 8px rgba(221,36,118,0.07);cursor:pointer;font-weight:500;transition:background 0.2s;">
+              <input type="radio" name="service" value="tim" required style="accent-color:#dd2476;width:18px;height:18px;"> Tim
+            </label>
+          </div>
+          <div id="selected-service" style="margin-top:8px;color:#d7263d;font-weight:bold;min-height:22px;font-size:1.05rem;"></div>
+        </div>
+        <script>
+          // Hiển thị tên mục đã chọn
+          const radios = document.querySelectorAll('input[name="service"]');
+          const selectedServiceDiv = document.getElementById('selected-service');
+          radios.forEach(radio => {
+            radio.addEventListener('change', function() {
+              selectedServiceDiv.textContent = radio.checked ? `Bạn đã chọn: ${radio.value === 'view' ? 'View' : 'Tim'}` : '';
+            });
+          });
+        </script>
+        <label style="font-weight:500;">Email Mặc định:
+          <input type="email" name="email" value="tiktok@gmail.com" readonly style="padding:0.5rem;font-size:1rem;width:100%;margin-top:4px;border-radius:8px;border:1px solid #ccc;background:#f5f5f5;color:#888;">
         </label>
-        <input type="hidden" name="email" value="tiktok@gmail.com">
-        <label style="font-weight:500;">Số Lượng Min 100, Max 10.000:
+        <label style="font-weight:500;">Link TikTok:
+          <input type="text" name="link" required placeholder="Nhập link TikTok" style="padding:0.5rem;font-size:1rem;width:100%;margin-top:4px;border-radius:8px;border:1px solid #ccc;">
+        </label>
+        <label style="font-weight:500;">Số lượng (Min 100, Max 10.000):
+          <input type="number" name="soluong" required min="100" max="10000" placeholder="Nhập số lượng" style="padding:0.5rem;font-size:1rem;width:100%;margin-top:4px;border-radius:8px;border:1px solid #ccc;">
+        </label>
+        <label style="font-weight:500;">Nội dung:
           <textarea name="message" required style="padding:0.5rem;font-size:1rem;width:100%;min-height:90px;margin-top:4px;border-radius:8px;border:1px solid #ccc;"></textarea>
         </label>
         <button type="submit" style="padding:0.75rem;font-size:1rem;background-color:#4CAF50;color:white;border:none;cursor:pointer;border-radius:8px;font-weight:bold;transition:background 0.2s;">Gửi</button>
